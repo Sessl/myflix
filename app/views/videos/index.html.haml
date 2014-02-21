@@ -1,9 +1,15 @@
 %article.video_category
  
-  
-  .videos.row
-    - @videos.each do |video|
-      .video.col-sm-2
-        = link_to video_path(video), nil do
-          %img(src="#{video.small_cover_url}")
+  - Category.all.each do |category|
+    %header
+      %h3
+        = link_to category_path(category), nil do
+          #{category.name}
+    .videos.row
+      - @videos.each do |video|
+        - video.categories.each do |vcategory|
+          - if vcategory.name == category.name
+            .video.col-sm-2
+              = link_to video_path(video), nil do
+                %img(src="#{video.small_cover_url}")
 
