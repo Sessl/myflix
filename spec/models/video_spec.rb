@@ -11,5 +11,13 @@ describe Video do
   	video = Video.reflect_on_association(:categories)
   	video.macro.should == :has_many
   end
-
+  
+  it "is valid with title and description" do
+  	video = Video.new(title: "Jane Eyre", description: "adaptation of a book by Charlotte Bronte")
+  	expect(video).to be_valid
+  end
+  
+  it "is invalid without a title" do
+  	expect(Video.new(title: nil)).to_not have(1).errors_on(:title)
+  end
 end
