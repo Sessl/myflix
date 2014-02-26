@@ -18,6 +18,6 @@ describe Video do
   end
   
   it "is invalid without a title" do
-  	expect(Video.new(title: nil)).to_not have(1).errors_on(:title)
+  	expect(Video.new(title: nil)).to have(1).errors_on(:title)
   end
 end
