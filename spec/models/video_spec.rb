@@ -30,32 +30,38 @@ describe Video do
     it { should validate_presence_of(:description)}
 
     describe "search_by_title" do
+
+      before :each do
+        @thor = Video.create(title: "Thor", description: "Thor visits earth")
+        @thomas = Video.create(title: "The Thomas Crown Affair", description: "Crime romance thriller")
+        @lilo = Video.create(title: "Lilo and Stitch", description: "Animation adventure for children")
+      end
     
-      it "returns a single element array if a single value is found" do
-        thor = Video.create(title: "Thor", description: "Thor visits earth")
-        expect(Video.search_by_title("th")).to eq [thor]
+      context "string matches a single element" do
+        it "returns a single element array if a single value is found" do
+          expect(Video.search_by_title("st")).to eq [@lilo]
+        end
       end
 
-      it "returns an array with multiple elements for multiple matches" do
-        thor = Video.create(title: "Thor", description: "Thor visits earth")
-        thomas = Video.create(title: "The Thomas Crown Affair", description: "Crime romance thriller")
-        lilo = Video.create(title: "Lilo and Stitch", description: "Animation adventure for children")
-        expect(Video.search_by_title("tho")).to eq [thor,thomas]
+      context "string matches multiple elements" do
+        it "returns an array with multiple elements for multiple matches" do
+          expect(Video.search_by_title("tho")).to eq [@thor,@thomas]
+        end
       end
 
-      it "returns an empty array for no matches" do
-        thor = Video.create(title: "Thor", description: "Thor visits earth")
-        thomas = Video.create(title: "The Thomas Crown Affair", description: "Crime romance thriller")
-        lilo = Video.create(title: "Lilo and Stitch", description: "Animation adventure for children")
-        expect(Video.search_by_title("sa")).to eq []
+      context "string search returns an empty array" do
+        it "returns an empty array for no matches" do
+          expect(Video.search_by_title("sa")).to eq []
+        end
       end
 
-      it "does not return a non-matching value" do
-        thor = Video.create(title: "Thor", description: "Thor visits earth")
-        thomas = Video.create(title: "The Thomas Crown Affair", description: "Crime romance thriller")
-        lilo = Video.create(title: "Lilo and Stitch", description: "Animation adventure for children")
-        expect(Video.search_by_title("th")).to_not include lilo
+      context "search result does not include non-matching elements" do
+        it "does not return a non-matching value" do
+          expect(Video.search_by_title("th")).to_not include @lilo
+        end
       end
+
+
     end
 
 end
