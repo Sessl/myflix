@@ -49,6 +49,13 @@ describe Video do
         lilo = Video.create(title: "Lilo and Stitch", description: "Animation adventure for children")
         expect(Video.search_by_title("sa")).to eq []
       end
+
+      it "does not return a non-matching value" do
+        thor = Video.create(title: "Thor", description: "Thor visits earth")
+        thomas = Video.create(title: "The Thomas Crown Affair", description: "Crime romance thriller")
+        lilo = Video.create(title: "Lilo and Stitch", description: "Animation adventure for children")
+        expect(Video.search_by_title("th")).to_not include lilo
+      end
     end
 
 end
