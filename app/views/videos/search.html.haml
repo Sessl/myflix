@@ -1,0 +1,5 @@
+%article.video_category
+  .videos.row
+    - @videos.limit(6).each do |video|
+      = link_to video_path(video), nil do
+        %img(src="#{video.small_cover_url}")

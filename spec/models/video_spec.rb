@@ -36,6 +36,18 @@ describe Video do
         @thomas = Video.create(title: "The Thomas Crown Affair", description: "Crime romance thriller")
         @lilo = Video.create(title: "Lilo and Stitch", description: "Animation adventure for children")
       end
+
+      context "input string is nil" do
+        it "returns an empty array" do
+          expect(Video.search_by_title(nil)).to eq []
+        end
+      end
+
+      context "input string is empty" do
+        it "returns an empty array" do
+          expect(Video.search_by_title(" ")).to eq []
+        end
+      end
     
       context "string matches a single element" do
         it "returns a single element array if a single value is found" do
