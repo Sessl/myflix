@@ -1,8 +1,14 @@
 class VideosController < ApplicationController
+  before_action :require_user, except: [:front]
+  
+  def front
+    redirect_to home_path if current_user
+  end
 
   def index
-    @categories = Category.all
+    @categories = Category.all  
   end
+
 
   def show
     @video = Video.find(params[:id])

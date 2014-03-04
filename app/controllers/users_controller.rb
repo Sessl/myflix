@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:notice] = "You are registered"
+      session[:user_id] = @user.id
       redirect_to home_path
     else
       render 'new'

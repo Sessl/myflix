@@ -18,6 +18,7 @@ describe Category do
     before :each do
         @category = Category.create(name: "Comedy")
         @category2 = Category.create(name: "Action")
+        @category3 = Category.create(name: "Sports")
         @thor = Video.create(title: "Thor", description: "Thor visits earth", created_at: 1.year.ago)
         @thomas = Video.create(title: "The Thomas Crown Affair", description: "Crime romance thriller", created_at: 1.month.ago)
         @lilo = Video.create(title: "Lilo and Stitch", description: "Animation adventure for children", created_at: 2.year.ago)
@@ -59,6 +60,12 @@ describe Category do
     context "when there are less than six matching videos" do
       it "returns less than six if matching videos are less than six" do
         expect(@category2.recent_videos).to eq [@iron, @thor, @spider]
+      end
+    end
+    
+    context "when there are no matching videos" do
+      it "returns an empty array if category has no videos" do
+        expect(@category3.recent_videos).to eq []
       end
     end
 
