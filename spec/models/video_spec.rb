@@ -28,4 +28,52 @@ describe Video do
   #	expect(Video.new(description: nil)).to have(1).errors_on(:description)
   #end
     it { should validate_presence_of(:description)}
+
+    describe "search_by_title" do
+
+      before :each do
+        @thor = Video.create(title: "Thor", description: "Thor visits earth")
+        @thomas = Video.create(title: "The Thomas Crown Affair", description: "Crime romance thriller")
+        @lilo = Video.create(title: "Lilo and Stitch", description: "Animation adventure for children")
+      end
+
+      context "input string is nil" do
+        it "returns an empty array" do
+          expect(Video.search_by_title(nil)).to eq []
+        end
+      end
+
+      context "input string is empty" do
+        it "returns an empty array" do
+          expect(Video.search_by_title(" ")).to eq []
+        end
+      end
+    
+      context "string matches a single element" do
+        it "returns a single element array if a single value is found" do
+          expect(Video.search_by_title("st")).to eq [@lilo]
+        end
+      end
+
+      context "string matches multiple elements" do
+        it "returns an array with multiple elements for multiple matches" do
+          expect(Video.search_by_title("tho")).to eq [@thor,@thomas]
+        end
+      end
+
+      context "string search returns an empty array" do
+        it "returns an empty array for no matches" do
+          expect(Video.search_by_title("sa")).to eq []
+        end
+      end
+
+      context "search result does not include non-matching elements" do
+        it "does not return a non-matching value" do
+          expect(Video.search_by_title("th")).to_not include @lilo
+        end
+      end
+
+
+    end
+
 end
