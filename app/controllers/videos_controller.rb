@@ -1,5 +1,5 @@
 class VideosController < ApplicationController
-  before_action :require_user, except: [:front]
+  #before_action :require_user, except: [:front]
   
   def front
     redirect_to home_path if current_user
