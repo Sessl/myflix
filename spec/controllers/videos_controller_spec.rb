@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe VideosController do
+  describe "user access" do
+  before :each do
+    user = User.create(username:"fake person", email: "facke@fake.com", password: "fakepassword")
+    session[:user_id] = user.id
+  end
+
   describe "GET show" do
     it "sets the @video variable" do
       video = Video.create(title: "Frozen", description: "Disney Movie about two princesses")
@@ -37,5 +43,6 @@ describe VideosController do
       response.should render_template :search
     end
   end
+end
      
 end
