@@ -23,6 +23,8 @@ end
 group :test, :development do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+  gem 'fabrication'
+  gem 'faker'
 end
 
 
