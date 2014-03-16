@@ -33,9 +33,9 @@ describe UsersController do
     end
 
     it "saves @user.id to session[:user_id] if @user is saved" do
-      post :create, user: {username: "Bob Builder", email: "bob_b@bobb.com", password: "secret"}
-      
-      expect(session[:user_id]).to eq(user.id)
+      #post :create, user: {username: "Bob Builder", email: "bob_b@bobb.com", password: "secret"}
+      post :create, user: Fabricate.attributes_for(:user)
+      expect(session[:user_id]).to eq(User.first.id)
     end
 
     it "redirects to home_path if @user is saved" do 
