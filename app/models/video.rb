@@ -21,9 +21,7 @@ validates :description, presence: true
       end
     average = ((total.to_f)/self.reviews.count).round(1)
   end
-
-    def latest_reviews
-      reviews.order("created_at DESC")
-    end
-
+ 
+  
+    
 end

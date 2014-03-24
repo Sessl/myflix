@@ -1,6 +1,7 @@
 class VideosController < ApplicationController
   before_action :require_user, except: [:front]
   
+  
   def front
     redirect_to home_path if current_user
   end
@@ -13,6 +14,7 @@ class VideosController < ApplicationController
   def show
     @video = Video.find(params[:id])
     @reviews = @video.reviews
+    @review = Review.new
   end
 
   def search
