@@ -14,14 +14,18 @@
 %section.reviews.container
   .row
     .col-sm-10.col-sm-offset-1
-      = form_for([@video, @review]) do |f|
-        = render 'shared/messages', obj: @review
+      = bootstrap_form_for([@video, @review]) do |f|
         %fieldset
           .form-group
             %label Rate this video
-            =f.select :rating, options_for_select([5,4,3,2,1])
+            .row
+              .col-sm-3
+                =f.select :rating, [["5 *****", 5], ["4 ****", 4], ["3 ***", 3], ["2 **", 2], ["1 *", 1]], {}, hide_label: true
+          .form-group
             %label Write Review
-            =f.text_area :content, rows: 6, class: "span6"
+            .row
+              .col-sm-8
+                =f.text_area :content, rows: 6,  hide_label: true
         %fieldset.form-group.actions.clearfix
           %input(type="submit" value="Submit" class="btn")
           =link_to "Cancel", video_path(@video)
