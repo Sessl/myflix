@@ -5,10 +5,10 @@ def new
 end
 
 def create
-  user = User.find_by(email: params[:email])
+  @user = User.find_by(email: params[:email]) #changed local variable user to @user so that rspec test expect(assigns(:user)).to eq(penny) passes
 
-  if user && user.authenticate(params[:password])
-    session[:user_id] = user.id
+  if @user && @user.authenticate(params[:password])
+    session[:user_id] = @user.id
     flash[:notice] = "You are logged in!"
     redirect_to home_path
   else
