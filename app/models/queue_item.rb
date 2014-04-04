@@ -11,7 +11,8 @@ class QueueItem < ActiveRecord::Base
   end
 
   def category_name
-  	video.video_categories.first.category.name
+  	#video.video_categories.first.category.name
+    queue_item_category.name
   end
 
   def queue_item_category
