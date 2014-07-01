@@ -42,7 +42,7 @@ describe QueueItemsController do
       post :create, video_id: video.id
       expect(QueueItem.first.user).to eq(alice)
     end
-    it "add the video as the last item in the queue" do
+    it "adds the video as the last item in the queue" do
       alice = Fabricate(:user)
       session[:user_id] = alice.id
       gameofthrones = Fabricate(:video)
@@ -93,5 +93,12 @@ describe QueueItemsController do
       delete :destroy, id: 3
       expect(response).to redirect_to sign_in_path
     end
+  end
+
+  describe "POST update_queue" do
+    context "with valid inputs"
+    context "with invalid inputs"
+    context "with unauthenticated users"
+    context "with queue items that do not belong to the current user"
   end
 end
