@@ -96,8 +96,68 @@ describe QueueItemsController do
   end
 
   describe "POST update_queue" do
-    context "with valid inputs"
-    context "with invalid inputs"
+    context "with valid inputs" do
+      it "redirects to the my_queue page" do
+        alice = Fabricate(:user)
+        session[:user_id] = alice.id
+        queue_item1 = Fabricate(:queue_item, user: alice, position: 1)
+        queue_item2 = Fabricate(:queue_item, user: alice, position: 2)
+        post :update_queue, queue_items: [{id: queue_item1, position: 2},{id: queue_item2, position: 1}]
+        expect(response).to redirect_to my_queue_path
+      end
+      it "reorders the queue items" do
+        alice = Fabricate(:user)
+        session[:user_id] = alice.id
+        queue_item1 = Fabricate(:queue_item, user: alice, position: 1)
+        queue_item2 = Fabricate(:queue_item, user: alice, position: 2)
+        post :update_queue, queue_items: [{id: queue_item1, position: 2},{id: queue_item2, position: 1}]
+        expect(alice.queue_items).to eq([queue_item2, queue_item1])
+      end
+      it "normalizes the position numbers" do
+        alice = Fabricate(:user)
+        session[:user_id] = alice.id
+        queue_item1 = Fabricate(:queue_item, user: alice, position: 1)
+        queue_item2 = Fabricate(:queue_item, user: alice, position: 2)
+        post :update_queue, queue_items: [{id: queue_item1, position: 3},{id: queue_item2, position: 2}]
+        expect(alice.queue_items.map(&:position)).to eq([1,2])
+       #require 'pry'; binding.pry
+       #line 122 and lines 124-125 will give the same result provided reload method is used on queue_item1 & queue_item2
+       #expect(queue_item1.reload.position).to eq(2)
+       #expect(queue_item2.reload.position).to eq(1)
+      end
+
+    end
+    context "with invalid inputs" do
+      it "redirects to the my queue page" do
+        alice = Fabricate(:user)
+        session[:user_id] = alice.id
+        queue_item1 = Fabricate(:queue_item, user: alice, position: 1)
+        queue_item2 = Fabricate(:queue_item, user: alice, position: 2)
+        post :update_queue, queue_items: [{id: queue_item1, position: 3.5},{id: queue_item2, position: 2}]
+        expect(response).to redirect_to my_queue_path
+
+        #this test passes because in the controller following the update_queue method we have the redirect.
+
+      end
+      it "sets the flash error message" do
+        alice = Fabricate(:user)
+        session[:user_id] = alice.id
+        queue_item1 = Fabricate(:queue_item, user: alice, position: 1)
+        queue_item2 = Fabricate(:queue_item, user: alice, position: 2)
+        post :update_queue, queue_items: [{id: queue_item1, position: 3.5},{id: queue_item2, position: 2}]
+        expect(flash[:error]).to be_present
+      end
+      it "does not change the order of queue items" do
+        alice = Fabricate(:user)
+        session[:user_id] = alice.id
+        queue_item1 = Fabricate(:queue_item, user: alice, position: 1)
+        queue_item2 = Fabricate(:queue_item, user: alice, position: 2)
+        #now we make queue_item1 position valid and queue_item2 position invalid and when we run it, the first-time round following test should fail because queue_item1 position would change and queue_item2 position would not.
+        #to get the test to past we implement a transaction in the controller action so that even one fails the other changes are also rolled back.
+        post :update_queue, queue_items: [{id: queue_item1, position: 3},{id: queue_item2, position: 1.5}]
+        expect(queue_item1.reload.position).to eq(1)
+      end
+    end
     context "with unauthenticated users"
     context "with queue items that do not belong to the current user"
   end
