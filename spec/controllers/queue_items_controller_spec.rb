@@ -81,6 +81,15 @@ describe QueueItemsController do
       delete :destroy, id: queue_item.id
       expect(QueueItem.count).to eq(0)
     end
+    it "normalizes queue items after deletion" do
+      alice = Fabricate(:user)
+      session[:user_id] = alice.id
+      queue_item1 = Fabricate(:queue_item, user: alice, position: 1)
+      queue_item2 = Fabricate(:queue_item, user: alice, position: 2)
+      queue_item3 = Fabricate(:queue_item, user: alice, position: 3)
+      delete :destroy, id: queue_item2.id
+      expect(alice.queue_items.map(&:position)).to eq([1,2])
+    end
     it "does not delete the queue item if it is not in the current user's queue" do
       alice = Fabricate(:user)
       session[:user_id] = alice.id
