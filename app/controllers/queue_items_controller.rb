@@ -19,9 +19,9 @@ class QueueItemsController < ApplicationController
         redirect_to my_queue_path
         return
       end
-      current_user.queue_items.each_with_index do |queue_item, index|
-        queue_item.update_attributes(position: index + 1)
-      end
+
+      normalize_queue_item_positions
+      
       redirect_to my_queue_path
 
    end
@@ -49,5 +49,11 @@ class QueueItemsController < ApplicationController
             queue_item.update_attributes!(position: queue_item_data["position"])
           end
         end
+   end
+
+   def normalize_queue_item_positions
+    current_user.queue_items.each_with_index do |queue_item, index|
+        queue_item.update_attributes(position: index + 1)
+      end
    end
 end
