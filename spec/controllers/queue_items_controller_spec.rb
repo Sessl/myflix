@@ -158,7 +158,22 @@ describe QueueItemsController do
         expect(queue_item1.reload.position).to eq(1)
       end
     end
-    context "with unauthenticated users"
-    context "with queue items that do not belong to the current user"
+    context "with unauthenticated users" do
+      it "redirects to sign_in_path" do
+        post :update_queue, queue_items: [{id: 1, position: 3},{id: 2, position: 1}]
+        expect(response).to redirect_to sign_in_path
+      end
+    end
+    context "with queue items that do not belong to the current user" do
+      it "should not change queue items" do
+        alice = Fabricate(:user)
+        alan = Fabricate(:user)
+        session[:user_id] = alan.id
+        queue_item1 = Fabricate(:queue_item, user: alice, position: 1)
+        queue_item2 = Fabricate(:queue_item, user: alan, position: 2)
+        post :update_queue, queue_items: [{id: queue_item1, position: 3},{id: queue_item2, position: 1}]
+        expect(queue_item1.reload.position).to eq(1)
+      end
+    end
   end
 end
