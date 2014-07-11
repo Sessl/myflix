@@ -12,18 +12,12 @@ class QueueItemsController < ApplicationController
 
    def update_queue
       begin
-        update_queue_items
-        
+        update_queue_items  #if this fails it moves to rescue and displays flash message, redirects and returns else it normalizes, redirects and returns.
+        normalize_queue_item_positions
       rescue ActiveRecord::RecordInvalid
         flash[:error] = "Invalid position numbers."
-        redirect_to my_queue_path
-        return
       end
-
-      normalize_queue_item_positions
-      
       redirect_to my_queue_path
-
    end
    
    def destroy
