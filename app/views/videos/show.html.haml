@@ -20,7 +20,7 @@
             %label Rate this video
             .row
               .col-sm-3
-                =f.select :rating, [["5 *****", 5], ["4 ****", 4], ["3 ***", 3], ["2 **", 2], ["1 *", 1]], {}, hide_label: true
+                =f.select :rating, options_for_video_ratings, {}, hide_label: true
           .form-group
             %label Write Review
             .row

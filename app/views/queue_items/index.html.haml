@@ -26,8 +26,8 @@
 
                 %td
                   = button_to "Play", nil, class: "btn btn-default"
-                %td= queue_item.rating
-                 
+
+                %td= select_tag "queue_items[][rating]", options_for_video_ratings(queue_item.rating), include_blank: true
                 %td
                   = link_to queue_item.category_name, queue_item.queue_item_category
                 %td
