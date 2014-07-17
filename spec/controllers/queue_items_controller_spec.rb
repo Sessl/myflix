@@ -106,31 +106,26 @@ describe QueueItemsController do
 
   describe "POST update_queue" do
     context "with valid inputs" do
-      it "redirects to the my_queue page" do
-        alice = Fabricate(:user)
+      let(:alice) {Fabricate(:user)}
+      let(:video) {Fabricate(:video)}
+      let(:queue_item1) {Fabricate(:queue_item, user: alice, position: 1, video: video)}
+      let(:queue_item2) {Fabricate(:queue_item, user: alice, position: 2, video: video)}
+      before do
         session[:user_id] = alice.id
-        video = Fabricate(:video)
-        queue_item1 = Fabricate(:queue_item, user: alice, position: 1, video: video)
-        queue_item2 = Fabricate(:queue_item, user: alice, position: 2, video: video)
+      end
+      it "redirects to the my_queue page" do
+        
         post :update_queue, queue_items: [{id: queue_item1, position: 2},{id: queue_item2, position: 1}]
         expect(response).to redirect_to my_queue_path
       end
       it "reorders the queue items" do
-        alice = Fabricate(:user)
-        session[:user_id] = alice.id
-        video = Fabricate(:video)
-        queue_item1 = Fabricate(:queue_item, user: alice, position: 1, video: video)
-        queue_item2 = Fabricate(:queue_item, user: alice, position: 2, video: video)
+        
         post :update_queue, queue_items: [{id: queue_item1, position: 2},{id: queue_item2, position: 1}]
         expect(alice.queue_items).to eq([queue_item2, queue_item1])
       end
 
       it "normalizes the position numbers" do
-        alice = Fabricate(:user)
-        session[:user_id] = alice.id
-        video = Fabricate(:video)
-        queue_item1 = Fabricate(:queue_item, user: alice, position: 1, video: video)
-        queue_item2 = Fabricate(:queue_item, user: alice, position: 2, video: video)
+        
         post :update_queue, queue_items: [{id: queue_item1, position: 3},{id: queue_item2, position: 2}]
         expect(alice.queue_items.map(&:position)).to eq([1,2])
        #require 'pry'; binding.pry
@@ -141,12 +136,15 @@ describe QueueItemsController do
 
     end
     context "with invalid inputs" do
-      it "redirects to the my queue page" do
-        alice = Fabricate(:user)
+      let(:alice) {Fabricate(:user)}
+      let(:video) {Fabricate(:video)}
+      let(:queue_item1) {Fabricate(:queue_item, user: alice, position: 1, video: video)}
+      let(:queue_item2) {Fabricate(:queue_item, user: alice, position: 2, video: video)}
+      before do
         session[:user_id] = alice.id
-        video = Fabricate(:video)
-        queue_item1 = Fabricate(:queue_item, user: alice, position: 1, video: video)
-        queue_item2 = Fabricate(:queue_item, user: alice, position: 2, video: video)
+      end
+      it "redirects to the my queue page" do
+        
         post :update_queue, queue_items: [{id: queue_item1, position: 3.5},{id: queue_item2, position: 2}]
         expect(response).to redirect_to my_queue_path
 
@@ -154,20 +152,12 @@ describe QueueItemsController do
 
       end
       it "sets the flash error message" do
-        alice = Fabricate(:user)
-        session[:user_id] = alice.id
-        video = Fabricate(:video)
-        queue_item1 = Fabricate(:queue_item, user: alice, position: 1, video: video)
-        queue_item2 = Fabricate(:queue_item, user: alice, position: 2, video: video)
+        
         post :update_queue, queue_items: [{id: queue_item1, position: 3.5},{id: queue_item2, position: 2}]
         expect(flash[:error]).to be_present
       end
       it "does not change the order of queue items" do
-        alice = Fabricate(:user)
-        session[:user_id] = alice.id
-        video = Fabricate(:video)
-        queue_item1 = Fabricate(:queue_item, user: alice, position: 1, video: video)
-        queue_item2 = Fabricate(:queue_item, user: alice, position: 2, video: video)
+        
         #now we make queue_item1 position valid and queue_item2 position invalid and when we run it, the first-time round following test should fail because queue_item1 position would change and queue_item2 position would not.
         #to get the test to past we implement a transaction in the controller action so that even one fails the other changes are also rolled back.
         post :update_queue, queue_items: [{id: queue_item1, position: 3},{id: queue_item2, position: 1.5}]
