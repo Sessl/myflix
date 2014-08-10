@@ -7,7 +7,7 @@ describe SessionsController do
       get :new
       expect(response).to render_template :new
     end
-    it "redirects to home_path if current_user exisits" do
+    it "redirects to home_path if current_user exsists" do
       session[:user_id] = Fabricate(:user).id
       get :new
       expect(response).to redirect_to home_path
@@ -15,27 +15,33 @@ describe SessionsController do
   end
 
   describe "POST create" do
+    
+
     it "finds user by email" do
-      penny = Fabricate(:user)
-      post :create, email: penny.email, password: penny.password
+     penny = Fabricate(:user)
+     post :create, email: penny.email, password: penny.password
+      
       expect(assigns(:user)).to eq(penny)
     end
     it "saves user.id to session[:user_id] if user is authenticated" do
-      penny = Fabricate(:user)
-      post :create, email: penny.email, password: penny.password
+     penny = Fabricate(:user)
+     post :create, email: penny.email, password: penny.password
+      
       expect(session[:user_id]).to eq(penny.id)
     end
     it "displays flash[:notice] if user is authenticated" do
-      penny = Fabricate(:user)
-      post :create, email: penny.email, password: penny.password
+     penny = Fabricate(:user)
+     post :create, email: penny.email, password: penny.password
+      
       expect(flash[:notice]).to_not be_nil
     end
     it "redirects to home_path if user is authenticated" do
-      penny = Fabricate(:user)
-      post :create, email: penny.email, password: penny.password
+     penny = Fabricate(:user)
+     post :create, email: penny.email, password: penny.password
+      
       expect(response).to redirect_to home_path
     end
-
+  
 
     it "displays flash danger if authentication fails" do
       penny = Fabricate(:user)
