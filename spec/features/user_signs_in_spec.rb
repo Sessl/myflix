@@ -1,14 +1,12 @@
 require 'spec_helper'
 
 feature "Signing in" do
-  background do
-    User.create(:email => "user@example.com", :username => "Annie", :password => "caplin")
-  end
   scenario "Signing in with correct credentials" do
+    alice = Fabricate(:user)
     visit sign_in_path
-    fill_in "Email Address", :with => "user@example.com"
-    fill_in "Password", :with => "caplin"
+    fill_in "Email Address", :with => alice.email
+    fill_in "Password", :with => alice.password
     click_button "Sign in"
-    page.should have_content "Annie"
+    page.should have_content alice.username
   end
 end
