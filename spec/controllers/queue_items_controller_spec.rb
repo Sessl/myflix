@@ -11,9 +11,9 @@ describe QueueItemsController do
       get :index
       expect(assigns(:queue_items)).to match_array([queue_item1, queue_item2])
     end
-    it "redirects to the sign in page for unauthenticated users" do
-      get :index
-      expect(response).to redirect_to sign_in_path
+    
+    it_behaves_like "requires sign in" do
+      let(:action) {get :index}
     end
   end 
 
@@ -62,10 +62,11 @@ describe QueueItemsController do
       post :create, video_id: gameofthrones.id
       expect(QueueItem.count).to eq(1)
     end
-    it "redirects to the sign in page if user is not signed in" do
-      post :create, video_id: 3
-      expect(response).to redirect_to sign_in_path
+    
+    it_behaves_like "requires sign in" do
+      let(:action) {post :create, video_id: 3}
     end
+
   end
 
   describe "DELETE destroy" do
@@ -98,14 +99,22 @@ describe QueueItemsController do
       queue_item = Fabricate(:queue_item, user: james)
       delete :destroy, id: queue_item.id
       expect(QueueItem.count).to eq(1)
-    end
-    it "redirects unauthenticated users to signin page" do
-      delete :destroy, id: 3
-      expect(response).to redirect_to sign_in_path
+    end 
+    it_behaves_like "requires sign in" do
+      let(:action) {delete :destroy, id: 3}
     end
   end
 
   describe "POST update_queue" do
+
+    context "with unauthenticated users" do
+      it_behaves_like "requires sign in" do
+        let(:action) do
+          post :update_queue, queue_items: [{id: 1, position: 3},{id: 2, position: 1}]
+        end
+      end
+    end
+
     context "with valid inputs" do
       let(:alice) {Fabricate(:user)}
       let(:video) {Fabricate(:video)}
@@ -155,12 +164,7 @@ describe QueueItemsController do
         expect(queue_item1.reload.position).to eq(1)
       end
     end
-    context "with unauthenticated users" do
-      it "redirects to sign_in_path" do
-        post :update_queue, queue_items: [{id: 1, position: 3},{id: 2, position: 1}]
-        expect(response).to redirect_to sign_in_path
-      end
-    end
+
     context "with queue items that do not belong to the current user" do
       it "should not change queue items" do
         alice = Fabricate(:user)
