@@ -28,14 +28,14 @@ feature "User interacts with the queue" do
   find("a[href='/videos/#{arthur.id}']").click
   click_link "+ My Queue"
 
-  fill_in "video_#{beckham.id}", with: 3
-  fill_in "video_#{snatch.id}", with: 1
-  fill_in "video_#{arthur.id}", with: 2
-
+  find("input[data-video-id='#{beckham.id}']").set(3)
+  find("input[data-video-id='#{snatch.id}']").set(1)
+  find("input[data-video-id='#{arthur.id}']").set(2)
+ 
   click_button "Update Instant Queue"
-  expect(find("#video_#{beckham.id}").value).to eq("3")
-  expect(find("#video_#{snatch.id}").value).to eq("1")
-  expect(find("#video_#{arthur.id}").value).to eq("2")
+  expect(find("input[data-video-id='#{beckham.id}']").value).to eq("3")
+  expect(find("input[data-video-id='#{snatch.id}']").value).to eq("1")
+  expect(find("input[data-video-id='#{arthur.id}']").value).to eq("2")
 
   end  
 
