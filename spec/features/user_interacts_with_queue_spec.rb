@@ -28,15 +28,24 @@ feature "User interacts with the queue" do
   find("a[href='/videos/#{arthur.id}']").click
   click_link "+ My Queue"
 
-  find("input[data-video-id='#{beckham.id}']").set(3)
-  find("input[data-video-id='#{snatch.id}']").set(1)
-  find("input[data-video-id='#{arthur.id}']").set(2)
- 
-  click_button "Update Instant Queue"
-  expect(find("input[data-video-id='#{beckham.id}']").value).to eq("3")
-  expect(find("input[data-video-id='#{snatch.id}']").value).to eq("1")
-  expect(find("input[data-video-id='#{arthur.id}']").value).to eq("2")
+  within(:xpath, "//tr[contains(.,'#{beckham.title}')]") do
+    fill_in "queue_items[][position]", with: 3
+  end
 
+  within(:xpath, "//tr[contains(.,'#{snatch.title}')]") do
+    fill_in "queue_items[][position]", with: 1
+  end
+
+  within(:xpath, "//tr[contains(.,'#{arthur.title}')]") do
+    fill_in "queue_items[][position]", with: 2
+  end
+
+  click_button "Update Instant Queue"
+
+  expect(find(:xpath, "//tr[contains(.,'#{beckham.title}')]//input[@type='text']").value).to eq("3")
+  expect(find(:xpath, "//tr[contains(.,'#{snatch.title}')]//input[@type='text']").value).to eq("1")
+  expect(find(:xpath, "//tr[contains(.,'#{arthur.title}')]//input[@type='text']").value).to eq("2")
+  
   end  
 
 
