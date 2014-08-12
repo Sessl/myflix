@@ -27,6 +27,9 @@ group :test, :development do
   gem 'faker'
 end
 
+group :test do
+  gem 'capybara'
+end
 
 group :production do
   gem 'pg'
