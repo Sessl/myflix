@@ -24,5 +24,6 @@ Myflix::Application.routes.draw do
 
   resources :categories, except: [:destroy]
   resources :users, only: [:create] 
+  resources :users, only: [:show]
     
 end
