@@ -20,9 +20,19 @@ describe RelationshipsController do
       lilo = Fabricate(:user)
       set_current_user(lilo)
       nani = Fabricate(:user)
-      relationship = Fabricate(:relationship, leader: nani, follower:lilo)
+      relationship = Fabricate(:relationship, leader: nani, follower: lilo)
       delete :destroy, id: relationship.id
       expect(Relationship.count).to eq(0)
     end
+    it "does not delete a relationship if current_user is not the follower" do
+      lilo = Fabricate(:user)
+      set_current_user(lilo)
+      nani = Fabricate(:user)
+      david = Fabricate(:user)
+      relationship = Fabricate(:relationship, leader: nani, follower: david)
+      delete :destroy, id: relationship.id
+      expect(Relationship.count).to eq(1)
+    end
+
   end
 end
