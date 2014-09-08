@@ -11,6 +11,10 @@ describe User do
 
   it {should have_many(:reviews).order("created_at DESC")}
 
+  it {should have_many(:following_relationships)}
+
+  it {should have_many(:leading_relationships)}
+
   describe "#queued_video?" do
     it "returns true when the user queued the video" do
       user = Fabricate(:user)
