@@ -5,7 +5,7 @@ describe RelationshipsController do
    it_behaves_like "requires sign in" do
     let(:action) {get :index}
    end
-   it "sets @relationships to relationships of current user is following" do
+   it "sets @relationships to relationships, current user is following" do
      lilo = Fabricate(:user)
      set_current_user(lilo)
      nani = Fabricate(:user)
@@ -74,6 +74,11 @@ describe RelationshipsController do
      post :create, leader_id: nani.id
      expect(lilo.following_relationships.count).to eq(1)
     end
-    it "does not allow one to follow themselves"
+    it "does not allow one to follow themselves" do
+      lilo = Fabricate(:user)
+      set_current_user(lilo)
+      post :create, leader_id: lilo.id
+      expect(lilo.following_relationships.count).to eq(0)
+    end
   end
 end

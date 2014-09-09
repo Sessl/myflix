@@ -17,9 +17,15 @@ validates :description, presence: true
   def average_rating 
     total = 0
       self.reviews.each do |review|
-        total += review.rating
+        if review.rating != nil
+         total += review.rating
+        end
       end
-    average = ((total.to_f)/self.reviews.count).round(1)
+    if total != 0
+      average = ((total.to_f)/self.reviews.count).round(1)
+    else
+      return 0
+    end
   end
  
   
