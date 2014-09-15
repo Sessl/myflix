@@ -9,6 +9,12 @@ describe User do
 
   it {should have_many(:queue_items).order(:position)}
 
+  it {should have_many(:reviews).order("created_at DESC")}
+
+  it {should have_many(:following_relationships)}
+
+  it {should have_many(:leading_relationships)}
+
   describe "#queued_video?" do
     it "returns true when the user queued the video" do
       user = Fabricate(:user)
@@ -20,6 +26,21 @@ describe User do
       user = Fabricate(:user)
       video = Fabricate(:video)
       user.queued_video?(video).should be_false
+    end
+  end
+
+  describe "#follows?" do
+    it "returns true when the user has a following_relationship with another user" do
+      lilo = Fabricate(:user)
+      nani = Fabricate(:user)
+      Fabricate(:relationship, leader: nani, follower: lilo)
+      expect(lilo.follows?(nani)).to be_true
+    end
+    it "returns false when the user does not have a following_relationship with another user" do
+      lilo = Fabricate(:user)
+      nani = Fabricate(:user)
+      Fabricate(:relationship, leader: lilo, follower: nani)
+      expect(lilo.follows?(nani)).to be_false
     end
   end
 end
