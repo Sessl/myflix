@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RelationshipsController do 
+describe RelationshipsController, type: :controller do 
   describe "GET index" do
    it_behaves_like "requires sign in" do
     let(:action) {get :index}

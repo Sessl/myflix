@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe QueueItemsController do
+describe QueueItemsController, type: :controller do
 
   describe "GET index" do
     it "sets @queue_times to the queue items of the logged in user" do
