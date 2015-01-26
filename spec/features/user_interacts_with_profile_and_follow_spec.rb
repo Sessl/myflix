@@ -26,7 +26,7 @@ feature "User interacts with reviewer profile and people I follow page" do
     end
 
     def expect_page_to_show_name(leader)
-      page.should have_content(leader.username)
+      expect(page).to have_content(leader.username)
     end
 
     def click_link_to_follow(button_text)

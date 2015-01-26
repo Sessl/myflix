@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :following_relationships, class_name: "Relationship", foreign_key: :follower_id
   has_many :leading_relationships, class_name: "Relationship", foreign_key: :leader_id
   
-  before_create :generate_token
+ # before_create :generate_token
 
   def normalize_queue_item_positions
       queue_items.each_with_index do |queue_item, index|
@@ -31,6 +31,9 @@ class User < ActiveRecord::Base
 #  private
 
   def generate_token
-    self.token = SecureRandom.urlsafe_base64
+    #self.token = SecureRandom.urlsafe_base64
+    #self.token_set_time = Time.zone.now
+    self.update_column(:token, SecureRandom.urlsafe_base64)
+    self.update_column(:token_set_time, Time.zone.now)
   end
 end
