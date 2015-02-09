@@ -1,7 +1,7 @@
 class PasswordResetsController < ApplicationController
   def show
     user = User.where(token: params[:id]).first
-    if user && (user.token_set_time  >= 2.hours.ago)
+    if user && (user.token_set_time  >= User::RESET_TIME)
       @token = user.token
     else
       redirect_to expired_token_path 

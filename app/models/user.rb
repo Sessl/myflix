@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :following_relationships, class_name: "Relationship", foreign_key: :follower_id
   has_many :leading_relationships, class_name: "Relationship", foreign_key: :leader_id
   
+  RESET_TIME = 2.hours.ago
  # before_create :generate_token
 
   def normalize_queue_item_positions
