@@ -51,6 +51,7 @@ describe PasswordResetsController, type: :controller do
       it "sets the flash success message" do
         alice = Fabricate(:user, password: 'old_password')
         alice.update_column(:token, '12345')
+        alice.update_column(:token_set_time, Time.zone.now)
         post :create, token: '12345', password: 'new_password', password_confirmation: 'new_password'
         expect(flash[:success]).to be_present
       end
@@ -59,7 +60,7 @@ describe PasswordResetsController, type: :controller do
         alice.update_column(:token, '12345')
         alice.update_column(:token_set_time, Time.zone.now)
         post :create, token: '12345', password: 'new_password', password_confirmation: 'new_password'
-        expect(alice.reload.token).not_to eq('12345')
+        expect(alice.reload.token).to be_nil
       end
     end
 

@@ -5,7 +5,7 @@ class MyflixMailer < ActionMailer::Base
   end
 
   def send_forgot_password(user)
-  	@user = user
-  	mail from: "info@myflixapp.com", to: @user.email, subject: "Please reset your password"
+    @user = user
+    mail from: "info@myflixapp.com", to: @user.email, subject: "Please reset your password"
   end
 end
