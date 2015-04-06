@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe UsersController do
+describe UsersController, type: :controller do
 
   describe "GET new" do
     it "sets the @user variable to a new instance of class User" do
@@ -45,6 +45,25 @@ describe UsersController do
     it "render :new if @user is not saved" do
       post :create, user: {email: "gggggg@ggg.com", password: "ekekekekek"}
       expect(response).to render_template :new
+    end
+
+    context "sending emails" do
+
+      after { ActionMailer::Base.deliveries.clear }
+
+      it "sends out email to the user with valid inputs" do
+        post :create, user: { email: "joe@example.com", password: "password", password_confirmation: "password", username: "Joe Smith"}
+        expect(ActionMailer::Base.deliveries.last.to).to eq(['joe@example.com'])
+      end
+      it "sends out email containing the user's name with valid inputs" do
+        post :create, user: { email: "joe@example.com", password: "password", password_confirmation: "password", username: "Joe Smith"}
+        expect(ActionMailer::Base.deliveries.last.body).to include("Joe Smith")
+      end
+      it "does not send out email with invalid inputs" do
+        post :create, user: { email: "joe@example" }
+        expect(ActionMailer::Base.deliveries).to be_empty
+      end
+
     end
 
   end
