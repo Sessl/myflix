@@ -77,5 +77,5 @@ describe InvitationsController, type: :controller do
       end
     end
   end
-  #note stopped at 26.03 minutes 10.21am September 2, 2015
+  
 end

@@ -21,6 +21,8 @@
             %label.control-label.col-sm-2 Full Name
             .col-sm-6
               = f.text_field :username, hide_label: true
+          = hidden_field_tag :invitation_token, @invitation_token
+
           .form-group
             .col-sm-2        
             = f.submit "Sign Up"
