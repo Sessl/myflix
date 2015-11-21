@@ -21,11 +21,11 @@ feature 'User invites friend' do
     fill_in "Full Name", with: "John Doe"
     click_button "Sign Up"
 
-  #  sign_out
-  #  click_link "Sign In"
-   # fill_in "Email Address", with: "john@example.com"
-  #  fill_in "Password", with: "password"
-   # click_button "Sign in"
+   sign_out
+   click_link "Sign In"
+   fill_in "Email Address", with: "john@example.com"
+   fill_in "Password", with: "password"
+   click_button "Sign in"
 
     click_link "People"
     expect(page).to have_content alice.username
