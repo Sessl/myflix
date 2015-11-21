@@ -10,21 +10,25 @@ feature 'User invites friend' do
     fill_in "Friend's Email Address", with: "john@example.com"
     fill_in "Message", with: "Hello please join this site."
     click_button "Send Invitation"
+    
 
     open_email "john@example.com"
     current_email.click_link "Accept this invitation"
 
+
     fill_in "Password", with: "password"
+    fill_in "Confirm Password", with: "password"
     fill_in "Full Name", with: "John Doe"
     click_button "Sign Up"
 
-
-    fill_in "Email Address", with: "john@example.com"
-    fill_in "Password", with: "password"
-    click_button "Sign in"
+  #  sign_out
+  #  click_link "Sign In"
+   # fill_in "Email Address", with: "john@example.com"
+  #  fill_in "Password", with: "password"
+   # click_button "Sign in"
 
     click_link "People"
-    expect(page).to have_content alice.full_name
+    expect(page).to have_content alice.username
     sign_out
 
     sign_in(alice)
