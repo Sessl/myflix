@@ -6,23 +6,18 @@
           %h1 Register 
         %fieldset
           .form-group
-            %label.control-label.col-sm-2 Email Address
             .col-sm-6
-              = f.email_field :email, hide_label: true
+              = f.email_field :email, label: "Email Address"
           .form-group
-            %label.control-label.col-sm-2 Password
             .col-sm-6
-              = f.password_field :password, hide_label: true
+              = f.password_field :password, label: "Password"
           .form-group
-            %label.control-label.col-sm-2 Confirm Password
             .col-sm-6
-              = f.password_field :password_confirmation, hide_label: true
+              = f.password_field :password_confirmation, label: "Confirm Password"
           .form-group
-            %label.control-label.col-sm-2 Full Name
             .col-sm-6
-              = f.text_field :username, hide_label: true
+              = f.text_field :username, label: "Full Name"
           = hidden_field_tag :invitation_token, @invitation_token
 
-          .form-group
-            .col-sm-2        
+          .form-group     
             = f.submit "Sign Up"

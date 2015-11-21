@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       flash[:notice] = "You are registered"
       session[:user_id] = @user.id
       MyflixMailer.notify_on_signup(current_user).deliver
-      redirect_to home_path
+      redirect_to sign_in_path
     else
       render 'new'
     end
