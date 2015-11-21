@@ -5,11 +5,13 @@ feature 'User invites friend' do
     alice = Fabricate(:user)
     sign_in(alice)
 
+
     visit new_invitation_path
     fill_in "Friend's Name", with: "John Doe"
     fill_in "Friend's Email Address", with: "john@example.com"
     fill_in "Message", with: "Hello please join this site."
     click_button "Send Invitation"
+    sign_out
     
 
     open_email "john@example.com"
