@@ -18,21 +18,21 @@ describe InvitationsController, type: :controller do
     it_behaves_like "requires sign in" do
      let(:action) { post :create}
     end
-
+ 
     context "with valid input" do
 
      after {ActionMailer::Base.deliveries.clear}
 
-     it "redirects to the invitation new page" do
-      set_current_user
+      it "redirects to the invitation new page" do
+        set_current_user
         post :create, invitation: { recipient_name: "Joe Smith", recipient_email: "joe@example.com", message: "Hey join Myflix!"}
         expect(response).to redirect_to new_invitation_path
-     end
-     it "creates an invitation" do
-       set_current_user
+      end
+      it "creates an invitation" do
+        set_current_user
         post :create, invitation: { recipient_name: "Joe Smith", recipient_email: "joe@example.com", message: "Hey join Myflix!"}
         expect(Invitation.count).to eq(1)
-     end
+      end
       it "sends an email to the recipient" do
         set_current_user
         post :create, invitation: { recipient_name: "Joe Smith", recipient_email: "joe@example.com", message: "Hey join Myflix!"}
