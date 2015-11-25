@@ -4,16 +4,12 @@ feature 'User invites friend' do
   scenario 'User successfully invites friend and the invitation is accepted' do
     alice = Fabricate(:user)
     sign_in(alice)
-
     invite_a_friend
     friend_accepts_invitation
     sign_out
     friend_signs_in
     friend_should_follow(alice)
     inviter_should_follow_friend(alice)
-
-    
-
     clear_email
   end
 

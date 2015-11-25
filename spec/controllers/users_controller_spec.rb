@@ -45,6 +45,7 @@ describe UsersController, type: :controller do
       joe = User.where(email: 'joe@example.com').first
       expect(joe.follows?(alice)).to be_truthy
     end
+
     it "makes the inviter follow the user" do
       alice = Fabricate(:user)
       invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
@@ -52,6 +53,7 @@ describe UsersController, type: :controller do
       joe = User.where(email: 'joe@example.com').first
       expect(alice.follows?(joe)).to be_truthy
     end
+    
     it "expires the invitation upon acceptance" do
       alice = Fabricate(:user)
       invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
