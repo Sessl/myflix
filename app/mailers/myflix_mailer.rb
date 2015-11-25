@@ -10,7 +10,7 @@ class MyflixMailer < ActionMailer::Base
   end
 
   def send_invitation_email(invitation)
-  	@invitation = invitation
-  	mail to: invitation.recipient_email, from: "info@myflixapp.com", subject: "Invitation to join Myflix"
+    @invitation = invitation
+    mail to: invitation.recipient_email, from: "info@myflixapp.com", subject: "Invitation to join Myflix"
   end
 end
