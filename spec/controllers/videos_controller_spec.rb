@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe VideosController, type: :controller do
+describe VideosController do
   
   describe "user access" do
   before :each do

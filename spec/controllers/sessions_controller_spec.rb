@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SessionsController, type: :controller do
+describe SessionsController do
 
   describe "GET new" do
     it "renders the sign_in form" do

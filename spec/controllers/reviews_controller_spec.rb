@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ReviewsController, type: :controller do
+describe ReviewsController do
   describe "POST create" do
     let(:video) { Fabricate(:video)}
 

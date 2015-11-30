@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InvitationsController, type: :controller do
+describe InvitationsController do
   describe "GET new" do
     it "sets @invitation to a new invitation" do
       set_current_user
