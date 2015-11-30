@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   end
   
   def generate_password_reset_token
-    self.update_column(:token, SecureRandom.urlsafe_base64)
-    self.update_column(:token_set_time, Time.zone.now)
+    update_column(:token, SecureRandom.urlsafe_base64)
+    update_column(:token_set_time, Time.zone.now)
   end
 end
