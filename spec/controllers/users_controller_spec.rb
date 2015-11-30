@@ -4,6 +4,7 @@ require 'spec_helper'
 describe UsersController, type: :controller do
 
   describe "GET new" do
+
     it "sets the @user variable to a new instance of class User" do
       get :new
       expect(assigns(:user)).to be_instance_of(User)
@@ -23,6 +24,7 @@ describe UsersController, type: :controller do
   end
 
   describe "POST create" do
+
     it "sets the @user variable" do
       post :create, user: Fabricate.attributes_for(:user)
       expect(User.count).to eq(1)
@@ -96,6 +98,7 @@ describe UsersController, type: :controller do
   end
 
   describe "GET show" do
+
     it_behaves_like "requires sign in" do
       let(:action) { get :show, id: 3}
     end
@@ -109,6 +112,7 @@ describe UsersController, type: :controller do
   end
 
   describe "GET new_with_invitation_token" do
+    
     it "renders the :new view template" do
       invitation = Fabricate(:invitation)
       get :new_with_invitation_token, token: invitation.token
