@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+
   validates :username, presence: true
   validates :email, presence: true
   validates :password, presence: true
@@ -25,12 +26,16 @@ class User < ActiveRecord::Base
     following_relationships.map(&:leader).include?(another_user)
   end
   
+  def follow(another_user)
+    following_relationships.create(leader: another_user) if can_follow?(another_user)
+  end
+
   def can_follow?(another_user)
     !(self.follows?(another_user) || self == another_user)
   end
-
-  def generate_token
-    self.update_column(:token, SecureRandom.urlsafe_base64)
-    self.update_column(:token_set_time, Time.zone.now)
+  
+  def generate_password_reset_token
+    update_column(:token, SecureRandom.urlsafe_base64)
+    update_column(:token_set_time, Time.zone.now)
   end
 end

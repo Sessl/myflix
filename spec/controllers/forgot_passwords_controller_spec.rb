@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ForgotPasswordsController, type: :controller do 
+describe ForgotPasswordsController do 
   describe "POST create" do
     context "with blank input" do
       it "redirects to the forgot password page" do
