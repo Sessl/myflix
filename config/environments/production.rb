@@ -27,4 +27,6 @@ Myflix::Application.configure do
     password:             ENV['MAILGUN_SMTP_PASSWORD'],
     authentication:       'plain',
     enable_starttls_auto: true  }
+
+  config.action_mailer.default_url_options = {host: 'sesslmyflix.herokuapp.com'}
 end
