@@ -59,6 +59,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    concurrent-ruby (1.0.0)
+    connection_pool (2.2.0)
     daemons (1.1.9)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
@@ -127,6 +129,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.3.2)
+    redis (3.2.2)
     rspec-core (3.1.4)
       rspec-support (~> 3.1.0)
     rspec-expectations (3.1.2)
@@ -151,6 +154,11 @@ GEM
       sprockets-rails (~> 2.0)
     shoulda-matchers (2.7.0)
       activesupport (>= 3.0.0)
+    sidekiq (4.0.1)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      json (~> 1.0)
+      redis (~> 3.2, >= 3.2.1)
     slop (3.6.0)
     sprockets (2.11.0)
       hike (~> 1.2)
@@ -203,6 +211,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails
   shoulda-matchers
+  sidekiq
   sqlite3
   thin
   uglifier

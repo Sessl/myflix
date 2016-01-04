@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.3'
+ruby '2.1.0'
 
 gem 'bootstrap-sass'
 gem 'coffee-rails'
@@ -11,6 +11,7 @@ gem 'jquery-rails'
 gem 'bcrypt-ruby'
 gem 'bootstrap_form'
 gem 'figaro'
+gem 'sidekiq'
 
 group :development do
   gem 'sqlite3'
