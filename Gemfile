@@ -12,6 +12,8 @@ gem 'bcrypt-ruby'
 gem 'bootstrap_form'
 gem 'figaro'
 gem 'sidekiq'
+gem 'unicorn'
+gem 'rack-timeout'
 
 group :development do
   gem 'sqlite3'
