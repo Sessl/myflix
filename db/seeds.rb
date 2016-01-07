@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-suchitra = User.create(username: "Suchitra Edussuriya-Essl", password: "password", email: "suchitra@example.com")
+#suchitra = User.create(username: "Suchitra Edussuriya-Essl", password: "password", email: "suchitra@example.com")
 
 monk = Video.create(title: "Monk", small_cover_url: "/tmp/monk.jpg", large_cover_url: "/tmp/monk_large.jpg", description: "Detective Series")
 family = Video.create(title: "Family Guy", small_cover_url: "/tmp/family_guy.jpg", description: "Family with a talking Dog")
@@ -28,5 +28,5 @@ south.categories << category1
 south.categories << category2
 
 
-Review.create(user: suchitra, video: monk, rating: 3, content: "This is ok. I don't care for it that much.")
-Review.create(user: suchitra, video: monk, rating: 1, content: "Don't like it!")
+#Review.create(user: suchitra, video: monk, rating: 3, content: "This is ok. I don't care for it that much.")
+#Review.create(user: suchitra, video: monk, rating: 1, content: "Don't like it!")
