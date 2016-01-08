@@ -14,6 +14,7 @@ gem 'figaro'
 gem 'sidekiq'
 gem 'unicorn'
 gem 'rack-timeout'
+gem 'sentry-raven'
 
 group :development do
   gem 'sqlite3'
