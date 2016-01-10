@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.0'
+ruby '2.2.3'
 
 gem 'bootstrap-sass'
 gem 'coffee-rails'
@@ -14,6 +14,7 @@ gem 'figaro'
 gem 'sidekiq'
 gem 'unicorn'
 gem 'rack-timeout'
+gem 'sentry-raven'
 
 group :development do
   gem 'sqlite3'
