@@ -15,6 +15,7 @@ gem 'sidekiq'
 gem 'unicorn'
 gem 'rack-timeout'
 gem 'sentry-raven'
+gem 'eventmachine', '~>1.0.4'
 
 group :development do
   gem 'sqlite3'
