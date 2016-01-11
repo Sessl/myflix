@@ -1,0 +1,19 @@
+machine:
+  ruby:
+    version: 2.2.3
+deployment:
+  production:
+    branch: master
+    commands:
+      - heroku maintenance:on --app sessl-myflix
+      - heroku pg:backups capture --app sessl-myflix
+      - git push git@heroku.com:sessl-myflix.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app sessl-myflix
+      - heroku maintenance:off --app sessl-myflix
+  staging:
+    branch: staging
+    commands:
+      - heroku maintenance:on --app sessl-myflix-staging
+      - git push git@heroku.com:sessl-myflix-staging.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app sessl-myflix-staging
+      - heroku maintenance:off --app sessl-myflix-staging
