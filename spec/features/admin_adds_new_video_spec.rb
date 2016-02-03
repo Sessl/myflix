@@ -11,7 +11,7 @@ describe 'Admin adds new video' do
     select "Drama", from: "Category ids"
     fill_in "Description", with: "SF detective"
     attach_file "Large cover", with: "spec/support/uploads/monk_large.jpg"
-    attach_file "Small cover", with: "spec/suppot/uploads/monk.jpg"
+    attach_file "Small cover", with: "spec/support/uploads/monk.jpg"
     fill_in "Video URL", with: "http://www.example.com/my_video.mp4"
     click_button "Add Video"
 
