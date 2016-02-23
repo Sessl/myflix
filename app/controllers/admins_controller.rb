@@ -1,5 +1,5 @@
 class AdminsController < AuthenticatedController
-  before_filter :ensure_admin
+  before_action :ensure_admin
 
   def ensure_admin
     unless current_user.admin?
