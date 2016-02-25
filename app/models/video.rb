@@ -18,9 +18,8 @@ def self.search_by_title(search_title)
 end
 
 def average_rating 
-  total = self.reviews.inject(0) { |sum, review| sum + review.rating if !review.rating.nil?} 
-  if total != 0 && self.reviews.count != nil
-    average = ((total.to_f)/self.reviews.count).round(1)
+  if self.reviews.average(:rating)
+    average = self.reviews.average(:rating)
   else
     average = 0
   end
