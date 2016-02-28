@@ -7,8 +7,15 @@ shared_examples "requires sign in" do
 end
 
 shared_examples "tokenable" do
-    it "generates a random token when the invitation is created" do
+  it "generates a random token when the invitation is created" do
     expect(object.token).to be_present
   end
 end
-    
+  
+shared_examples "requires admin" do
+  it "redirects to the root path" do
+    set_current_user
+    get :new
+    expect(response).to redirect_to root_path
+  end
+end

@@ -10,7 +10,7 @@ def create
   if @user && @user.authenticate(params[:password])
     session[:user_id] = @user.id
     flash[:notice] = "You are logged in!"
-    redirect_to home_path
+    redirect_to current_user.admin? ? new_admin_video_path : home_path
   else
     flash[:danger] = "There is something wrong with your username or password"
     redirect_to sign_in_path
