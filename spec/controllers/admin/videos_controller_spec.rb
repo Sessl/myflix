@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Admin::VideosController do 
+
   describe "GET new" do
     it_behaves_like "requires sign in" do
       let(:action) {get :new}
@@ -8,8 +9,7 @@ describe Admin::VideosController do
     it "sets the @video to a new video" do
       set_current_admin
       get :new
-      expect(assigns(:video)).to be_instance_of Video
-      expect(assigns(:video)).to be_new_record
+      expect(assigns(:video)).to be_a_new(Video)
     end
     it_behaves_like "requires admin" do
       let(:action) {get :new}
@@ -28,57 +28,50 @@ describe Admin::VideosController do
     it_behaves_like "requires admin" do
       let(:action) {post :create}
     end
+
+    before :each do
+      @category1 = Fabricate(:category)
+      @category2 = Fabricate(:category)
+    end
+
     context "with valid inputs" do
       it "redirects to the add new video page" do
         set_current_admin
-        category1 = Fabricate(:category)
-        category2 = Fabricate(:category)
-        post :create, video: {title: "Monk", category_ids: [category1.id, category2.id], description: "good show"}
+        post :create, video: {title: "Monk", category_ids: [@category1.id, @category2.id], description: "good show"}
         expect(response).to redirect_to new_admin_video_path
       end
       it "creates a video" do
         set_current_admin
-        category1 = Fabricate(:category)
-        category2 = Fabricate(:category)
-        post :create, video: {title: "Monk", category_ids: [category1.id, category2.id], description: "good show"}
-        expect(category1.videos.count).to eq(1)
+        post :create, video: {title: "Monk", category_ids: [@category1.id, @category2.id], description: "good show"}
+        expect(@category1.videos.count).to eq(1)
       end
       it "sets the flash success message" do
         set_current_admin
-        category1 = Fabricate(:category)
-        category2 = Fabricate(:category)
-        post :create, video: {title: "Monk", category_ids: [category1.id, category2.id], description: "good show"}
+        post :create, video: {title: "Monk", category_ids: [@category1.id, @category2.id], description: "good show"}
         expect(flash[:success]).to be_present
       end
     end
     context "with invalid inputs" do
+      
       it "does not create a video" do
         set_current_admin
-        category1 = Fabricate(:category)
-        category2 = Fabricate(:category)
-        post :create, video: {category_ids: [category1.id, category2.id], description: "good show"}
-        expect(category1.videos.count).to eq(0)
+        post :create, video: {category_ids: [@category1.id, @category2.id], description: "good show"}
+        expect(@category1.videos.count).to eq(0)
       end
       it "renders the :new template" do
         set_current_admin
-        category1 = Fabricate(:category)
-        category2 = Fabricate(:category)
-        post :create, video: {category_ids: [category1.id, category2.id], description: "good show"}
+        post :create, video: {category_ids: [@category1.id, @category2.id], description: "good show"}
         expect(response).to render_template :new
       end
       it "sets the @video variable" do
         set_current_admin
-        category1 = Fabricate(:category)
-        category2 = Fabricate(:category)
-        post :create, video: {category_ids: [category1.id, category2.id], description: "good show"}
+        post :create, video: {category_ids: [@category1.id, @category2.id], description: "good show"}
         expect(assigns(:video)).to be_present
       end
       it "sets the flash error message" do
         set_current_admin
-        category1 = Fabricate(:category)
-        category2 = Fabricate(:category)
-        post :create, video: {category_ids: [category1.id, category2.id], description: "good show"}
-        expect(flash[:error]).to be_present
+        post :create, video: {category_ids: [@category1.id, @category2.id], description: "good show"}
+        expect(flash[:danger]).to be_present
       end
     end
   end  
