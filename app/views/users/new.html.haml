@@ -20,4 +20,4 @@
           = hidden_field_tag :invitation_token, @invitation_token
 
           .form-group     
-            = f.submit "Sign Up"
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key=#{ENV['STRIPE_PUBLISHABLE_KEY']} data-name="Myflix Sign Up Charge" data-description="$9.99 to sign up the best video service" data-amount="999" data-locale="auto"> </script>

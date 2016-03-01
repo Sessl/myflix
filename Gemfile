@@ -19,6 +19,7 @@ gem 'eventmachine', '~>1.0.4'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'carrierwave-aws'
+gem 'stripe'
 
 group :development do
   gem 'sqlite3'
