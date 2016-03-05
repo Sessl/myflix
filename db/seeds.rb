@@ -8,10 +8,27 @@
 
 #suchitra = User.create(username: "Suchitra Edussuriya-Essl", password: "password", email: "suchitra@example.com")
 
-monk = Video.create(title: "Monk", small_cover: "/tmp/monk.jpg", large_cover: "/tmp/monk_large.jpg", description: "Detective Series")
-family = Video.create(title: "Family Guy", small_cover: "/tmp/family_guy.jpg", description: "Family with a talking Dog")
-future = Video.create(title: "Futurama", small_cover: "/tmp/futurama.jpg", description: "Animation abou the future!? Oh I don't know")
-south = Video.create(title: "South Park", small_cover: "/tmp/south_park.jpg", description: "Life in Small Town America")
+monk = Video.create(
+  title: "Monk", 
+  small_cover: File.open("./public/tmp/monk.jpg"), 
+  large_cover: File.open("./public/tmp/monk_large.jpg"), 
+  description: "Detective Series"
+)
+family = Video.create(
+  title: "Family Guy", 
+  small_cover: File.open("./public/tmp/family_guy.jpg"), 
+  description: "Family with a talking Dog"
+)
+future = Video.create(
+  title: "Futurama", 
+  small_cover: File.open("./public/tmp/futurama.jpg"), 
+  description: "Animation about the future!? Oh I don't know"
+)
+south = Video.create(
+  title: "South Park", 
+  small_cover: File.open("./public/tmp/south_park.jpg"), 
+  description: "Life in Small Town America"
+)
 category1 = Category.create(name: "Comedy")
 category2 = Category.create(name: "Animation")
 category3 = Category.create(name: "Sci-Fi")
