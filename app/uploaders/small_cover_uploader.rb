@@ -4,6 +4,6 @@ class SmallCoverUploader < CarrierWave::Uploader::Base
   process :resize_to_limit => [166, 236]  
 
   def store_dir
-  	"tmp"
+  	"uploads/tmp"
   end
 end
