@@ -26,6 +26,7 @@ class UsersController < ApplicationController
         :source => params[:stripeToken], # obtained with Stripe.js
         :description => "Sign up charge for #{@user.email}"
       )
+      
       flash[:notice] = "You are registered"
       session[:user_id] = @user.id
       MyflixMailer.notify_on_signup(current_user).deliver
