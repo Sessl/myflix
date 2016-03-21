@@ -4,7 +4,7 @@ module StripeWrapper
       Stripe::Charge.create(
         amount: options[:amount],
         currency: 'usd',
-        card: options[:card],
+        card: options[:source],
         description: options[:description]
       )
     end

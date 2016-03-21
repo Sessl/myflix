@@ -25,56 +25,72 @@ describe UsersController do
 
   describe "POST create" do
 
-    it "sets the @user variable" do
-      post :create, user: Fabricate.attributes_for(:user)
-      expect(User.count).to eq(1)
+    context "with valid inputs" do
+
+      before do
+        StripeWrapper::Charge.stub(:create)
+      end
+
+      it "sets the @user variable" do
+        post :create, user: Fabricate.attributes_for(:user)
+        expect(User.count).to eq(1)
+      end
+
+      it "displays flash[:notice] if @user is saved" do
+        post :create, user: Fabricate.attributes_for(:user)
+        expect(flash[:notice]).to_not be_nil
+      end
+
+      it "saves @user.id to session[:user_id] if @user is saved" do
+        #post :create, user: {username: "Bob Builder", email: "bob_b@bobb.com", password: "secret"}
+        post :create, user: Fabricate.attributes_for(:user)
+        expect(session[:user_id]).to eq(User.first.id)
+      end
+
+      it "makes the user follow the inviter" do
+        alice = Fabricate(:user)
+        invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
+        post :create, user: { email: 'joe@example.com', password: "password", username: 'Joe Doe'}, invitation_token: invitation.token
+        joe = User.where(email: 'joe@example.com').first
+        expect(joe.follows?(alice)).to be_truthy
+      end
+
+      it "makes the inviter follow the user" do
+        alice = Fabricate(:user)
+        invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
+        post :create, user: { email: 'joe@example.com', password: "password", username: 'Joe Doe'}, invitation_token: invitation.token
+        joe = User.where(email: 'joe@example.com').first
+        expect(alice.follows?(joe)).to be_truthy
+      end
+      
+      it "expires the invitation upon acceptance" do
+        alice = Fabricate(:user)
+        invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
+        post :create, user: { email: 'joe@example.com', password: "password", username: 'Joe Doe'}, invitation_token: invitation.token
+        expect(Invitation.first.token).to be_nil
+      end
+
+      it "redirects to home_path if @user is saved" do 
+        post :create, user: Fabricate.attributes_for(:user)
+        expect(response).to redirect_to home_path
+      end
+
     end
 
-    it "displays flash[:notice] if @user is saved" do
-      post :create, user: Fabricate.attributes_for(:user)
-      expect(flash[:notice]).to_not be_nil
-    end
+    context "with invalid inputs" do
 
-    it "saves @user.id to session[:user_id] if @user is saved" do
-      #post :create, user: {username: "Bob Builder", email: "bob_b@bobb.com", password: "secret"}
-      post :create, user: Fabricate.attributes_for(:user)
-      expect(session[:user_id]).to eq(User.first.id)
-    end
+      it "render :new if @user is not saved" do
+        post :create, user: {email: "gggggg@ggg.com", password: "ekekekekek"}
+        expect(response).to render_template :new
+      end
 
-    it "makes the user follow the inviter" do
-      alice = Fabricate(:user)
-      invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
-      post :create, user: { email: 'joe@example.com', password: "password", username: 'Joe Doe'}, invitation_token: invitation.token
-      joe = User.where(email: 'joe@example.com').first
-      expect(joe.follows?(alice)).to be_truthy
-    end
-
-    it "makes the inviter follow the user" do
-      alice = Fabricate(:user)
-      invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
-      post :create, user: { email: 'joe@example.com', password: "password", username: 'Joe Doe'}, invitation_token: invitation.token
-      joe = User.where(email: 'joe@example.com').first
-      expect(alice.follows?(joe)).to be_truthy
-    end
-    
-    it "expires the invitation upon acceptance" do
-      alice = Fabricate(:user)
-      invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
-      post :create, user: { email: 'joe@example.com', password: "password", username: 'Joe Doe'}, invitation_token: invitation.token
-      expect(Invitation.first.token).to be_nil
-    end
-
-    it "redirects to home_path if @user is saved" do 
-      post :create, user: Fabricate.attributes_for(:user)
-      expect(response).to redirect_to home_path
-    end
-
-    it "render :new if @user is not saved" do
-      post :create, user: {email: "gggggg@ggg.com", password: "ekekekekek"}
-      expect(response).to render_template :new
     end
 
     context "sending emails" do
+
+      before do
+        StripeWrapper::Charge.stub(:create)
+      end
 
       after { ActionMailer::Base.deliveries.clear }
 
