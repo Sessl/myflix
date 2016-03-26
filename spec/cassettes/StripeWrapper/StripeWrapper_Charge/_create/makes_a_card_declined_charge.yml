@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Fri, 25 Mar 2016 19:08:22 GMT
+      - Sat, 26 Mar 2016 16:50:23 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_89Iu6yhOxE5CZS
+      - req_89dudlsEuNz58b
       Stripe-Version:
       - '2016-02-29'
       Strict-Transport-Security:
@@ -58,10 +58,10 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_17t0IELEtKgthVSvVThLfMjb",
+          "id": "tok_17tKcFLEtKgthVSvsBHXt7eI",
           "object": "token",
           "card": {
-            "id": "card_17t0IELEtKgthVSv1RpAtaAM",
+            "id": "card_17tKcFLEtKgthVSvohOzh3Vg",
             "object": "card",
             "address_city": null,
             "address_country": null,
@@ -85,19 +85,19 @@ http_interactions:
             "tokenization_method": null
           },
           "client_ip": "23.118.48.187",
-          "created": 1458932902,
+          "created": 1459011023,
           "livemode": false,
           "type": "card",
           "used": false
         }
     http_version: 
-  recorded_at: Fri, 25 Mar 2016 19:08:22 GMT
+  recorded_at: Sat, 26 Mar 2016 16:50:23 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/charges
     body:
       encoding: US-ASCII
-      string: amount=999&currency=usd&description=an+invalid+charge
+      string: amount=999&card=tok_17tKcFLEtKgthVSvsBHXt7eI&currency=usd&description=an+invalid+charge
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -114,20 +114,20 @@ http_interactions:
         Suchitras-MBP.attlocal.net 15.2.0 Darwin Kernel Version 15.2.0: Fri Nov 13
         19:56:56 PST 2015; root:xnu-3248.20.55~2/RELEASE_X86_64 x86_64","hostname":"Suchitras-MBP.attlocal.net"}'
       Content-Length:
-      - '53'
+      - '87'
   response:
     status:
-      code: 400
-      message: Bad Request
+      code: 402
+      message: Payment Required
     headers:
       Server:
       - nginx
       Date:
-      - Fri, 25 Mar 2016 19:08:22 GMT
+      - Sat, 26 Mar 2016 16:50:24 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '108'
+      - '162'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -141,7 +141,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_89Iu626Ku6JWh8
+      - req_89duO0DI8OibN6
       Stripe-Version:
       - '2016-02-29'
     body:
@@ -149,10 +149,12 @@ http_interactions:
       string: |
         {
           "error": {
-            "type": "invalid_request_error",
-            "message": "Must provide source or customer."
+            "message": "Your card was declined.",
+            "type": "card_error",
+            "code": "card_declined",
+            "charge": "ch_17tKcGLEtKgthVSvQuOFVXFz"
           }
         }
     http_version: 
-  recorded_at: Fri, 25 Mar 2016 19:08:22 GMT
+  recorded_at: Sat, 26 Mar 2016 16:50:24 GMT
 recorded_with: VCR 3.0.1
