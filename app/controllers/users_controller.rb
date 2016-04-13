@@ -31,11 +31,11 @@ class UsersController < ApplicationController
         MyflixMailer.notify_on_signup(current_user).deliver
         redirect_to home_path
       else
-        flash[:error] = charge.error_message
+        flash[:danger] = charge.error_message
         render 'new'
       end
     else
-      flash[:error] = "Invalid user information. Please check the errors below."
+      flash[:danger] = "Invalid user information. Please check the errors below."
       render 'new'
     end
   end

@@ -26,6 +26,7 @@ describe UsersController do
   describe "POST create" do
 
     context "with valid personal info and valid card" do
+      
       let(:charge) { double(:charge, successful?: true)}
       before do
         StripeWrapper::Charge.should_receive(:create).and_return(charge)
@@ -42,7 +43,6 @@ describe UsersController do
       end
 
       it "saves @user.id to session[:user_id] if @user is saved" do
-        #post :create, user: {username: "Bob Builder", email: "bob_b@bobb.com", password: "secret"}
         post :create, user: Fabricate.attributes_for(:user)
         expect(session[:user_id]).to eq(User.first.id)
       end
@@ -78,34 +78,36 @@ describe UsersController do
     end
     
     context "valid personal info and declined card" do
-      it "does not create a new user record" do
-        charge = double(:charge, successful?: false, error_message: "Your card was declined.")
+
+      let(:charge) { double(:charge, successful?: false, error_message: "Your card was declined.")}
+      before do
         StripeWrapper::Charge.should_receive(:create).and_return(charge)
+      end
+
+      it "does not create a new user record" do
         post :create, user: Fabricate.attributes_for(:user), stripeToken: '1231241'
         expect(User.count).to eq(0)
       end
       it "renders the new template" do
-        charge = double(:charge, successful?: false, error_message: "Your card was declined.")
-        StripeWrapper::Charge.should_receive(:create).and_return(charge)
         post :create, user: Fabricate.attributes_for(:user), stripeToken: '1231241'
         expect(response).to render_template :new
       end
       it "sets the flash error message" do
-        charge = double(:charge, successful?: false, error_message: "Your card was declined.")
-        StripeWrapper::Charge.should_receive(:create).and_return(charge)
         post :create, user: Fabricate.attributes_for(:user), stripeToken: '1231241'
-        expect(flash[:error]).to be_present
+        expect(flash[:danger]).to be_present
       end
-      it "does not send out email with invalid inputs" do
-        post :create, user: { email: "joe@example" }
-        expect(ActionMailer::Base.deliveries).to be_empty
-      end
+      
     end
 
     context "with invalid personal info" do
 
+      it "does not send out email with invalid inputs" do
+        post :create, user: { email: "joe@example" }
+        expect(ActionMailer::Base.deliveries).to be_empty
+      end
+
       it "render :new if @user is not saved" do
-        post :create, user: {email: "gggggg@ggg.com", password: "ekekekekek"}
+        post :create, user: {email: "joe@example.com", password: "somepassword"}
         expect(response).to render_template :new
       end
 
