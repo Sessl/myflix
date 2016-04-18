@@ -23,7 +23,7 @@ def sign_in(a_user=nil)
 end
 
 def sign_out
-  click_link "Sign Out"
+  visit destroy_path
 end
 
 def click_on_video_on_home_page(video)
