@@ -25,52 +25,25 @@ describe UsersController do
 
   describe "POST create" do
 
-    context "with valid personal info and valid card" do
+    context "successful user sign up" do
       
-      let(:charge) { double(:charge, successful?: true)}
-      before do
-        StripeWrapper::Charge.should_receive(:create).and_return(charge)
-      end
-
-      it "sets the @user variable" do
-        post :create, user: Fabricate.attributes_for(:user)
-        expect(User.count).to eq(1)
-      end
-
       it "displays flash[:notice] if @user is saved" do
+        result = double(:sign_up_result, successful?: true)
+        UserSignup.any_instance.should_receive(:sign_up).and_return(result)
         post :create, user: Fabricate.attributes_for(:user)
         expect(flash[:notice]).to_not be_nil
       end
 
       it "saves @user.id to session[:user_id] if @user is saved" do
+        charge = double(:charge, successful?: true)
+        StripeWrapper::Charge.should_receive(:create).and_return(charge)
         post :create, user: Fabricate.attributes_for(:user)
         expect(session[:user_id]).to eq(User.first.id)
       end
 
-      it "makes the user follow the inviter" do
-        alice = Fabricate(:user)
-        invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
-        post :create, user: { email: 'joe@example.com', password: "password", username: 'Joe Doe'}, invitation_token: invitation.token
-        joe = User.where(email: 'joe@example.com').first
-        expect(joe.follows?(alice)).to be_truthy
-      end
-
-      it "makes the inviter follow the user" do
-        alice = Fabricate(:user)
-        invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
-        post :create, user: { email: 'joe@example.com', password: "password", username: 'Joe Doe'}, invitation_token: invitation.token
-        joe = User.where(email: 'joe@example.com').first
-        expect(alice.follows?(joe)).to be_truthy
-      end
-      
-      it "expires the invitation upon acceptance" do
-        alice = Fabricate(:user)
-        invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
-        post :create, user: { email: 'joe@example.com', password: "password", username: 'Joe Doe'}, invitation_token: invitation.token
-        expect(Invitation.first.token).to be_nil
-      end
-
       it "redirects to home_path if @user is saved" do 
+        result = double(:sign_up_result, successful?: true)
+        UserSignup.any_instance.should_receive(:sign_up).and_return(result)
         post :create, user: Fabricate.attributes_for(:user)
         expect(response).to redirect_to home_path
       end
