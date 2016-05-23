@@ -16,15 +16,5 @@ def self.search_by_title(search_title)
     where("title LIKE ?", "%#{search_title}%")
   end
 end
-
-#def average_rating 
-#  if self.reviews.average(:rating)
-#    average = self.reviews.average(:rating)
-#  else
-#    average = 0
-#  end
-#end
- 
-
     
 end
