@@ -70,7 +70,7 @@ describe UserSignup do
       end
 
       it "does not charge the card" do
-        StripeWrapper::Charge.should_not_receive(:create)
+        expect(StripeWrapper::Charge).not_to receive(:create)
         UserSignup.new(User.new(email: "johnsmith@example.com")).sign_up('1231241', nil)
       end
 
