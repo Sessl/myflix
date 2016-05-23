@@ -29,7 +29,7 @@ describe UsersController do
       
       it "displays flash[:notice] if @user is saved" do
         result = double(:sign_up_result, successful?: true)
-        expect_any_instance_of(UserSignup).to (:sign_up).and_return(result)
+        expect_any_instance_of(UserSignup).to receive(:sign_up).and_return(result)
         post :create, user: Fabricate.attributes_for(:user)
         expect(flash[:notice]).to_not be_nil
       end
@@ -44,7 +44,7 @@ describe UsersController do
 
       it "saves @user.id to session[:user_id] if @user is saved" do
         result = double(:sign_up_result, successful?: true)
-        expect_any_instance_of(UserSignup).to (:sign_up).and_return(result)
+        expect_any_instance_of(UserSignup).to receive(:sign_up).and_return(result)
         alice = Fabricate(:user)
         user_result = User.stub_chain(:find, :first).and_return(alice.id)
         post :create, user: { email: alice.email, password: alice.password, password_confirmation: alice.password, username: alice.username }
@@ -53,7 +53,7 @@ describe UsersController do
 
       it "redirects to home_path if @user is saved" do 
         result = double(:sign_up_result, successful?: true)
-        expect_any_instance_of(UserSignup).to (:sign_up).and_return(result)
+        expect_any_instance_of(UserSignup).to receive(:sign_up).and_return(result)
         post :create, user: Fabricate.attributes_for(:user)
         expect(response).to redirect_to home_path
       end
@@ -64,14 +64,14 @@ describe UsersController do
 
       it "renders the new template" do
         result = double(:sign_up_result, successful?: false, error_message: "This is an error message")
-        expect_any_instance_of(UserSignup).to (:sign_up).and_return(result)
+        expect_any_instance_of(UserSignup).to receive(:sign_up).and_return(result)
         post :create, user: Fabricate.attributes_for(:user), stripeToken: '1231241'
         expect(response).to render_template :new
       end
       
       it "sets the flash error message" do
         result = double(:sign_up_result, successful?: false, error_message: "This is an error message")
-        expect_any_instance_of(UserSignup).to (:sign_up).and_return(result)
+        expect_any_instance_of(UserSignup).to receive(:sign_up).and_return(result)
         post :create, user: Fabricate.attributes_for(:user), stripeToken: '1231241'
         expect(flash[:danger]).to be_present
       end
