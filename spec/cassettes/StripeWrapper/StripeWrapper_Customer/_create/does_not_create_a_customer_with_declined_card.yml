@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 06 Jun 2016 17:39:00 GMT
+      - Mon, 06 Jun 2016 18:15:37 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_8acwqLKupjXBJa
+      - req_8adXw9AJBpx8sw
       Stripe-Version:
       - '2016-02-29'
       Strict-Transport-Security:
@@ -58,10 +58,10 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_18JRgmLEtKgthVSv5ZNOlRGM",
+          "id": "tok_18JSGDLEtKgthVSvt8mXR7Z5",
           "object": "token",
           "card": {
-            "id": "card_18JRgmLEtKgthVSvj1FDL0eX",
+            "id": "card_18JSGDLEtKgthVSvmWvQyTGp",
             "object": "card",
             "address_city": null,
             "address_country": null,
@@ -85,19 +85,19 @@ http_interactions:
             "tokenization_method": null
           },
           "client_ip": "23.118.48.187",
-          "created": 1465234740,
+          "created": 1465236937,
           "livemode": false,
           "type": "card",
           "used": false
         }
     http_version: 
-  recorded_at: Mon, 06 Jun 2016 17:39:00 GMT
+  recorded_at: Mon, 06 Jun 2016 18:15:37 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: card=tok_18JRgmLEtKgthVSv5ZNOlRGM&email=andy%40leannon.net&plan=base
+      string: card=tok_18JSGDLEtKgthVSvt8mXR7Z5&email=thaddeus%40gibson.info&plan=base
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -114,7 +114,7 @@ http_interactions:
         Suchitras-MBP.attlocal.net 15.4.0 Darwin Kernel Version 15.4.0: Fri Feb 26
         22:08:05 PST 2016; root:xnu-3248.40.184~3/RELEASE_X86_64 x86_64","hostname":"Suchitras-MBP.attlocal.net"}'
       Content-Length:
-      - '68'
+      - '72'
   response:
     status:
       code: 402
@@ -123,7 +123,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 06 Jun 2016 17:39:01 GMT
+      - Mon, 06 Jun 2016 18:15:38 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -141,7 +141,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_8acw4G8AjY6Tyz
+      - req_8adXYFBelLjQCp
       Stripe-Version:
       - '2016-02-29'
     body:
@@ -156,5 +156,5 @@ http_interactions:
           }
         }
     http_version: 
-  recorded_at: Mon, 06 Jun 2016 17:39:01 GMT
+  recorded_at: Mon, 06 Jun 2016 18:15:38 GMT
 recorded_with: VCR 3.0.1
