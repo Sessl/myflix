@@ -13,6 +13,7 @@ class UserSignup
         :source => stripe_token # obtained with Stripe.js  
       )
       if customer.successful?
+        @user.customer_token = customer.customer_token
         @user.save
         handle_invitation(invitation_token)
         MyflixMailer.notify_on_signup(@user).deliver
