@@ -77,8 +77,15 @@ describe "Create payment on successful charge" do
         "type"=>  "charge.succeeded"
       }
   end
+
 	it "creates a payment with the webhook from stripe for charge succeeded", :vcr do 
     post "/stripe_events", event_data
     expect(Payment.count).to eq(1)
+  end
+
+  it "creates the payment associated with user", :vcr do
+    alice = Fabricate(:user, customer_token: "cus_8bMeANGwCrOzom")
+    post "/stripe_events", event_data
+    expect(Payment.first.user).to eq(alice)
   end
 end
