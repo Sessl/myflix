@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.stripe.com/v1/events/evt_18K9vALEtKgthVSvU56ziJrr
+    uri: https://api.stripe.com/v1/events/evt_18TxRYLEtKgthVSvrRdF7hGC
     body:
       encoding: US-ASCII
       string: ''
@@ -29,11 +29,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 05 Jul 2016 19:37:01 GMT
+      - Tue, 05 Jul 2016 19:37:21 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '2030'
+      - '2026'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -47,7 +47,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_8lWOT6X32c5lSr
+      - req_8lWPvj7BfGBqvQ
       Stripe-Version:
       - '2016-02-29'
       Strict-Transport-Security:
@@ -56,33 +56,33 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "evt_18K9vALEtKgthVSvU56ziJrr",
+          "id": "evt_18TxRYLEtKgthVSvrRdF7hGC",
           "object": "event",
           "api_version": "2016-02-29",
-          "created": 1465404768,
+          "created": 1467740084,
           "data": {
             "object": {
-              "id": "ch_18K9vALEtKgthVSvTN2llLj9",
+              "id": "ch_18TxRYLEtKgthVSvp0qhuws2",
               "object": "charge",
               "amount": 999,
               "amount_refunded": 0,
               "application_fee": null,
-              "balance_transaction": "txn_18K9vALEtKgthVSvMMqTCfSz",
-              "captured": true,
-              "created": 1465404768,
+              "balance_transaction": null,
+              "captured": false,
+              "created": 1467740084,
               "currency": "usd",
-              "customer": "cus_8bMeANGwCrOzom",
-              "description": null,
+              "customer": "cus_8fxuUhIlBb5EqG",
+              "description": "another failed payment",
               "destination": null,
               "dispute": null,
-              "failure_code": null,
-              "failure_message": null,
+              "failure_code": "card_declined",
+              "failure_message": "Your card was declined.",
               "fraud_details": {},
-              "invoice": "in_18K9vALEtKgthVSvUSmEJIXP",
+              "invoice": null,
               "livemode": false,
               "metadata": {},
               "order": null,
-              "paid": true,
+              "paid": false,
               "receipt_email": null,
               "receipt_number": null,
               "refunded": false,
@@ -91,11 +91,11 @@ http_interactions:
                 "data": [],
                 "has_more": false,
                 "total_count": 0,
-                "url": "/v1/charges/ch_18K9vALEtKgthVSvTN2llLj9/refunds"
+                "url": "/v1/charges/ch_18TxRYLEtKgthVSvp0qhuws2/refunds"
               },
               "shipping": null,
               "source": {
-                "id": "card_18K9v9LEtKgthVSvP0trOXMM",
+                "id": "card_18TvCOLEtKgthVSvHMQ3awee",
                 "object": "card",
                 "address_city": null,
                 "address_country": null,
@@ -107,28 +107,28 @@ http_interactions:
                 "address_zip_check": null,
                 "brand": "Visa",
                 "country": "US",
-                "customer": "cus_8bMeANGwCrOzom",
-                "cvc_check": "pass",
+                "customer": "cus_8fxuUhIlBb5EqG",
+                "cvc_check": null,
                 "dynamic_last4": null,
-                "exp_month": 6,
-                "exp_year": 2018,
-                "fingerprint": "9aTT0lqdtJXxYmrk",
+                "exp_month": 11,
+                "exp_year": 2017,
+                "fingerprint": "u63lpppmy7oAjJnA",
                 "funding": "credit",
-                "last4": "4242",
+                "last4": "0341",
                 "metadata": {},
                 "name": null,
                 "tokenization_method": null
               },
               "source_transfer": null,
               "statement_descriptor": null,
-              "status": "succeeded"
+              "status": "failed"
             }
           },
           "livemode": false,
-          "pending_webhooks": 1,
-          "request": "req_8bMeT4SnahZNei",
-          "type": "charge.succeeded"
+          "pending_webhooks": 0,
+          "request": "req_8lUQhpZveNn1sf",
+          "type": "charge.failed"
         }
     http_version: 
-  recorded_at: Tue, 05 Jul 2016 19:37:01 GMT
+  recorded_at: Tue, 05 Jul 2016 19:37:21 GMT
 recorded_with: VCR 3.0.1

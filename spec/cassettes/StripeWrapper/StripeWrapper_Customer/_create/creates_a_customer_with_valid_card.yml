@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 15 Jun 2016 17:35:57 GMT
+      - Tue, 05 Jul 2016 19:37:26 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_8dzvHIJUlecX9g
+      - req_8lWP5yo4X0SRxH
       Stripe-Version:
       - '2016-02-29'
       Strict-Transport-Security:
@@ -58,10 +58,10 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_18MhvlLEtKgthVSvC3o4za1p",
+          "id": "tok_18TzMILEtKgthVSvGHuOQA44",
           "object": "token",
           "card": {
-            "id": "card_18MhvlLEtKgthVSvaCbKO6WD",
+            "id": "card_18TzMILEtKgthVSvTtqIOh6a",
             "object": "card",
             "address_city": null,
             "address_country": null,
@@ -85,19 +85,19 @@ http_interactions:
             "tokenization_method": null
           },
           "client_ip": "23.118.48.187",
-          "created": 1466012157,
+          "created": 1467747446,
           "livemode": false,
           "type": "card",
           "used": false
         }
     http_version: 
-  recorded_at: Wed, 15 Jun 2016 17:35:56 GMT
+  recorded_at: Tue, 05 Jul 2016 19:37:26 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: card=tok_18MhvlLEtKgthVSvC3o4za1p&email=waino_braun%40huelsrunte.net&plan=base
+      string: card=tok_18TzMILEtKgthVSvGHuOQA44&email=sonya%40strosin.info&plan=base
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -114,7 +114,7 @@ http_interactions:
         Suchitras-MBP.attlocal.net 15.4.0 Darwin Kernel Version 15.4.0: Fri Feb 26
         22:08:05 PST 2016; root:xnu-3248.40.184~3/RELEASE_X86_64 x86_64","hostname":"Suchitras-MBP.attlocal.net"}'
       Content-Length:
-      - '78'
+      - '70'
   response:
     status:
       code: 200
@@ -123,11 +123,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 15 Jun 2016 17:35:57 GMT
+      - Tue, 05 Jul 2016 19:37:27 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '2453'
+      - '2418'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -141,7 +141,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_8dzvmtvas2lJQK
+      - req_8lWPk9A4EIXjwg
       Stripe-Version:
       - '2016-02-29'
       Strict-Transport-Security:
@@ -150,17 +150,16 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "cus_8dzvDNbZChf9az",
+          "id": "cus_8lWPcacp8rUb0I",
           "object": "customer",
           "account_balance": 0,
-          "business_vat_id": null,
-          "created": 1466012157,
+          "created": 1467747446,
           "currency": "usd",
-          "default_source": "card_18MhvlLEtKgthVSvaCbKO6WD",
+          "default_source": "card_18TzMILEtKgthVSvTtqIOh6a",
           "delinquent": false,
           "description": null,
           "discount": null,
-          "email": "waino_braun@huelsrunte.net",
+          "email": "sonya@strosin.info",
           "livemode": false,
           "metadata": {},
           "shipping": null,
@@ -168,7 +167,7 @@ http_interactions:
             "object": "list",
             "data": [
               {
-                "id": "card_18MhvlLEtKgthVSvaCbKO6WD",
+                "id": "card_18TzMILEtKgthVSvTtqIOh6a",
                 "object": "card",
                 "address_city": null,
                 "address_country": null,
@@ -180,7 +179,7 @@ http_interactions:
                 "address_zip_check": null,
                 "brand": "Visa",
                 "country": "US",
-                "customer": "cus_8dzvDNbZChf9az",
+                "customer": "cus_8lWPcacp8rUb0I",
                 "cvc_check": "pass",
                 "dynamic_last4": null,
                 "exp_month": 3,
@@ -195,21 +194,21 @@ http_interactions:
             ],
             "has_more": false,
             "total_count": 1,
-            "url": "/v1/customers/cus_8dzvDNbZChf9az/sources"
+            "url": "/v1/customers/cus_8lWPcacp8rUb0I/sources"
           },
           "subscriptions": {
             "object": "list",
             "data": [
               {
-                "id": "sub_8dzvRfe7mllCP1",
+                "id": "sub_8lWPBoyaY83hA9",
                 "object": "subscription",
                 "application_fee_percent": null,
                 "cancel_at_period_end": false,
                 "canceled_at": null,
-                "created": 1466012157,
-                "current_period_end": 1468604157,
-                "current_period_start": 1466012157,
-                "customer": "cus_8dzvDNbZChf9az",
+                "created": 1467747446,
+                "current_period_end": 1470425846,
+                "current_period_start": 1467747446,
+                "customer": "cus_8lWPcacp8rUb0I",
                 "discount": null,
                 "ended_at": null,
                 "livemode": false,
@@ -229,7 +228,7 @@ http_interactions:
                   "trial_period_days": null
                 },
                 "quantity": 1,
-                "start": 1466012157,
+                "start": 1467747446,
                 "status": "active",
                 "tax_percent": null,
                 "trial_end": null,
@@ -238,9 +237,9 @@ http_interactions:
             ],
             "has_more": false,
             "total_count": 1,
-            "url": "/v1/customers/cus_8dzvDNbZChf9az/subscriptions"
+            "url": "/v1/customers/cus_8lWPcacp8rUb0I/subscriptions"
           }
         }
     http_version: 
-  recorded_at: Wed, 15 Jun 2016 17:35:57 GMT
+  recorded_at: Tue, 05 Jul 2016 19:37:27 GMT
 recorded_with: VCR 3.0.1

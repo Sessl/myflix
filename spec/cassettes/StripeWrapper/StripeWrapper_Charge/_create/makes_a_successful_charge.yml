@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 15 Jun 2016 17:35:53 GMT
+      - Tue, 05 Jul 2016 19:37:23 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_8dzvMeAvCOdaZg
+      - req_8lWPBMksXphMCj
       Stripe-Version:
       - '2016-02-29'
       Strict-Transport-Security:
@@ -58,10 +58,10 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_18MhvhLEtKgthVSvuMWzFF5A",
+          "id": "tok_18TzMFLEtKgthVSvECM8Pwf9",
           "object": "token",
           "card": {
-            "id": "card_18MhvhLEtKgthVSvhcqhwNn6",
+            "id": "card_18TzMFLEtKgthVSv8cD7g4sP",
             "object": "card",
             "address_city": null,
             "address_country": null,
@@ -85,19 +85,19 @@ http_interactions:
             "tokenization_method": null
           },
           "client_ip": "23.118.48.187",
-          "created": 1466012153,
+          "created": 1467747443,
           "livemode": false,
           "type": "card",
           "used": false
         }
     http_version: 
-  recorded_at: Wed, 15 Jun 2016 17:35:52 GMT
+  recorded_at: Tue, 05 Jul 2016 19:37:23 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/charges
     body:
       encoding: US-ASCII
-      string: amount=999&card=tok_18MhvhLEtKgthVSvuMWzFF5A&currency=usd&description=a+valid+charge
+      string: amount=999&card=tok_18TzMFLEtKgthVSvECM8Pwf9&currency=usd&description=a+valid+charge
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -123,7 +123,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 15 Jun 2016 17:35:53 GMT
+      - Tue, 05 Jul 2016 19:37:24 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -141,7 +141,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_8dzvMIXF2gKC3L
+      - req_8lWP7cKtqvp5UU
       Stripe-Version:
       - '2016-02-29'
       Strict-Transport-Security:
@@ -150,14 +150,14 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "ch_18MhvhLEtKgthVSv0n4uqUkt",
+          "id": "ch_18TzMGLEtKgthVSv8QZ6QtaA",
           "object": "charge",
           "amount": 999,
           "amount_refunded": 0,
           "application_fee": null,
-          "balance_transaction": "txn_18MhvhLEtKgthVSvPVhUt4mg",
+          "balance_transaction": "txn_18TzMGLEtKgthVSv5s306Crv",
           "captured": true,
-          "created": 1466012153,
+          "created": 1467747444,
           "currency": "usd",
           "customer": null,
           "description": "a valid charge",
@@ -179,11 +179,11 @@ http_interactions:
             "data": [],
             "has_more": false,
             "total_count": 0,
-            "url": "/v1/charges/ch_18MhvhLEtKgthVSv0n4uqUkt/refunds"
+            "url": "/v1/charges/ch_18TzMGLEtKgthVSv8QZ6QtaA/refunds"
           },
           "shipping": null,
           "source": {
-            "id": "card_18MhvhLEtKgthVSvhcqhwNn6",
+            "id": "card_18TzMFLEtKgthVSv8cD7g4sP",
             "object": "card",
             "address_city": null,
             "address_country": null,
@@ -212,5 +212,5 @@ http_interactions:
           "status": "succeeded"
         }
     http_version: 
-  recorded_at: Wed, 15 Jun 2016 17:35:53 GMT
+  recorded_at: Tue, 05 Jul 2016 19:37:24 GMT
 recorded_with: VCR 3.0.1
