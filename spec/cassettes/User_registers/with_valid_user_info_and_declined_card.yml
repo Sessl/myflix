@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.stripe.com/v1/charges
+    uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: amount=999&card=tok_17yD3tLEtKgthVSvHiXqBM7A&currency=usd&description=Sign+up+charge+for+john%40example.com
+      string: card=tok_18TzM7LEtKgthVSvPQPaEgp7&email=john%40example.com&plan=base
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -22,7 +22,7 @@ http_interactions:
         Suchitras-MBP.attlocal.net 15.4.0 Darwin Kernel Version 15.4.0: Fri Feb 26
         22:08:05 PST 2016; root:xnu-3248.40.184~3/RELEASE_X86_64 x86_64","hostname":"Suchitras-MBP.attlocal.net"}'
       Content-Length:
-      - '107'
+      - '68'
   response:
     status:
       code: 402
@@ -31,11 +31,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Sat, 09 Apr 2016 03:47:05 GMT
+      - Tue, 05 Jul 2016 19:37:16 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '162'
+      - '134'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_8EgQvxi2bPTeke
+      - req_8lWOU5i8r0L5BZ
       Stripe-Version:
       - '2016-02-29'
     body:
@@ -59,10 +59,10 @@ http_interactions:
           "error": {
             "message": "Your card was declined.",
             "type": "card_error",
-            "code": "card_declined",
-            "charge": "ch_17yD3tLEtKgthVSvegPa9Ycg"
+            "param": "",
+            "code": "card_declined"
           }
         }
     http_version: 
-  recorded_at: Sat, 09 Apr 2016 03:47:13 GMT
+  recorded_at: Tue, 05 Jul 2016 19:37:16 GMT
 recorded_with: VCR 3.0.1
