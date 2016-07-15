@@ -22,6 +22,8 @@ gem 'carrierwave-aws'
 gem 'stripe'
 gem 'stripe_event'
 gem 'draper'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 group :development do
   gem 'sqlite3'
