@@ -6,4 +6,11 @@ feature "Signing in" do
     sign_in(alice)
     expect(page).to have_content(alice.username)
   end
+
+  scenario "deactivated user" do
+    alice = Fabricate(:user, active: false)
+    sign_in(alice)
+    expect(page).not_to have_content(alice.username)
+    expect(page).to have_content("Your account has been suspended, please contact customer service")
+  end
 end
