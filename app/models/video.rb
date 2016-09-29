@@ -1,4 +1,8 @@
 class Video < ActiveRecord::Base
+include Elasticsearch::Model
+include Elasticsearch::Model::Callbacks 
+index_name ["myflix", Rails.env].join('_')
+
 has_many :video_categories
 has_many :categories, through: :video_categories
 has_many :reviews
