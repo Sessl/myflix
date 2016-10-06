@@ -20,5 +20,22 @@ def self.search_by_title(search_title)
     where("title LIKE ?", "%#{search_title}%")
   end
 end
+
+def self.search(query)
+  search_definition = {
+    query: {
+      multi_match: {
+        query: query,
+        fields: ["title", "description"],
+        operator: "and"
+      }
+    }
+  }
+  __elasticsearch__.search(search_definition)
+end
+
+def as_indexed_json(options={})
+	as_json(only: [:title, :description])
+end
     
 end
