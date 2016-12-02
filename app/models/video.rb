@@ -21,6 +21,10 @@ def self.search_by_title(search_title)
   end
 end
 
+def average_rating
+  self.reviews.average(:rating).to_f.round(1) if reviews.any?
+end
+
 def self.search(query, options={})
   search_definition = {
     query: {
@@ -35,11 +39,24 @@ def self.search(query, options={})
   if query.present? && options[:reviews].present?
     search_definition[:query][:multi_match][:fields] << "reviews.content"
   end
+
+  if options[:rating_from].present? || options[:rating_to].present?
+    search_definition[:filter] = {
+      range: {
+        average_rating: {
+        gte: (options[:rating_from] if options[:rating_from].present?),
+        lte: (options[:rating_to] if options[:rating_to].present?)
+        }
+      }
+    }
+  end
+
   __elasticsearch__.search(search_definition)
 end
 
 def as_indexed_json(options={})
 	as_json(
+    methods: [:average_rating],
     only: [:title, :description],
     include: {
       reviews: {only: [:content]}
